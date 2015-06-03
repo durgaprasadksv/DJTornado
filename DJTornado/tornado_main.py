@@ -24,7 +24,7 @@ def main():
   container = tornado.wsgi.WSGIContainer(wsgi_app)
   tornado_app = tornado.web.Application(
         [
-            (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': "/Users/maverick/webapphw4/grumblr/static"}),
+            (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': "/Users/abc/path/static"}),
             ('.*', tornado.web.FallbackHandler, dict(fallback=container)),
         ])
 
