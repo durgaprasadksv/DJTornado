@@ -1,0 +1,45 @@
+{% extends "login.html" %}
+
+    {% block contentblock %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron signin">
+      <div class="container">
+      <div class="row signup">
+          
+            <h3 class="head-text">Change Password<h3> 
+
+            <form id-"fullsignupForm" method="POST" action="/grumblr/changepass" accept-charset="UTF-8">
+              <div class="col-md-5">
+                         
+                <div class="input-group ">
+                  <span class="input-group-addon"><i class="icon-envelope icon-2x"></i></span>
+                  <input id="username" class="form-control input-lg" placeholder="Username" required="required" maxlength="50" type="text" name="username" value="{{username}}">
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-envelope icon-1x"></i></span>
+                  <input id="email" class="form-control input-lg" placeholder="Email" required="required" maxlength="100" type="text" name="email" value="{{email}}">
+                </div>
+               
+                  </br>
+                    <div class="form-group">
+                      <button type="submit" id="btn-signup" class="btn btn-block btn-primary btn-lg btn-danger">Send link to my mail</button>
+                    </div> 
+            <input type="hidden" name="next" value="{{ next }}" />
+              {% csrf_token %}      
+            </form>
+          </div>
+
+          <div class="col-md-5">
+             <div class="error-msg">{{errors.username}}</div></br>
+             <div class="error-msg">{{errors.email}}</div></br>
+             <div class="error-msg">{{errors.password1}}</div></br>
+             <div class="error-msg">{{errors.password2}}</div></br>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}
+

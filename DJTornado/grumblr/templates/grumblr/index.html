@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Grumblr</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/css/grumbler.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="navbar navbar-fixed-top homenav" role="navigation">
+
+    <div class="container">
+    <div class="row">
+
+     <div class="col-md-3">  <!-- Grumblr logo -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" style="font-size:35px;color:#d9534f;font-weight: bold;" href="/grumblr/">Grumblr</a>
+      </div>
+    </div>
+
+    <div class="col-md-5"><!-- search bar  -->
+    <div class="search-centered">
+      <form class="navbar-form" role="form" action="/grumblr/search" method="GET" style="font:red">
+        <div class="input-group add-on">
+          <input type="text" class="form-control" placeholder="search Grumblr" name="search" >
+          <div class="input-group-btn">
+            <button class="btn btn-danger" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+
+
+    <div class="col-md-4"> <!-- options bar  -->
+      <div class="navbar-collapse collapse">
+       <div class="form-group navbar-right navbar-form">
+        <a href="/" > 
+          <span class="glyphicon glyphicon-home "></span> Home
+        </a>&nbsp;
+        <a href="/grumblr/profile">
+          <span class="glyphicon glyphicon-user "></span> Me
+        </a>&nbsp;
+
+        <a href="/grumblr/updateprofile">
+          <span class="glyphicon glyphicon-cog"></span> Settings
+        </a>&nbsp;
+
+        <a href="/grumblr/logout">
+          <span class="glyphicon glyphicon-off "></span> Log out
+        </a>
+        &nbsp;
+      </div>
+    </div>   
+
+    
+      </div>
+    </div>
+  </div>
+ </div>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+<div class="container top-buffer">
+  <div class = "homerow ">
+
+    {% block leftbox %}
+    <div class="col-sm-3 profile">  
+      <div class="panel panel-default ">
+        <div class="panel-heading" id="profile-background">
+          </br></br></br></br>
+        </div>
+        <div class="panel-body ">
+          <div class="profile-pic" >
+        </div>
+        <h4 class="panel-title head-text">{{user.first_name}} {{user.last_name}}</h4>
+        <h4 class="panel-title small-text">@{{user.username}}</h4>
+        <h4 class="panel-title small-text">{{user.email}}</h4>
+
+        </div>
+      </div>
+
+    </div>
+    {% endblock %}
+
+
+     {% block middlebox %} 
+     <div class="col-md-6 feed">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title head-text">Post a Grumble !!</h3> 
+              <span class="error-msg">{{grumbl_error}}</span>
+            </div>
+            <div class="panel-body">
+
+              <form role="form" action="/grumblr/grumbl" method="POST">
+                <textarea class="form-control" maxlength="42" rows="3" name="grumbl"></textarea>
+              </br>
+              <button type="submit" class=" glyphicon glyphicon-camera btn btn-danger" name="image">Image
+              </button>
+              <button type="submit" class=" glyphicon glyphicon-edit btn btn-danger pull-right"
+              name="textpost">Post</button>
+              <input type="hidden" name="next" value="{{ next }}" />
+              {% csrf_token %}
+            </form>
+          </div>
+        </div>
+
+        <div class="panel panel-default top-buffer">
+          <div class="panel-heading"> 
+
+
+            <span class="glyphicon glyphicon-play-circle" style="font-size:20px"></span>
+            <b class="head-text"> Grumbls </b>
+            <a href="/grumblr/"> <span class="glyphicon glyphicon-refresh pull-right" style="font-size:20px";/></a>
+          </br>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+
+              <ul class="grumbl">
+
+                {% for g in grumbls %}
+                <li class="post">
+                  <table cellpadding="4">
+                    <tr>
+                      <td><img src="/static/images/default-profile.jpg" width="60" class="img-circle" /></td>
+                      <td> <h4>@{{g.user}}</h4>{{g.text}}</td>
+                    </tr>
+                  </table>
+
+                  {% endfor %}
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+    {% endblock %}
+
+
+
+    {% block rightbox %}
+    <div class="col-md-3 friends pull-right">
+
+      <div class="panel panel-default">
+
+        <div class="panel-body">
+          <h3 class="panel-title head-text">Followers</h3>
+          <div>
+          </br>
+          <img src="/static/images/gq.jpg"/>
+          <img src="/static/images/tu.jpg"/>
+          <img src="/static/images/1a.jpg"/>
+          <img src="/static/images/1b.jpg"/>
+          <img src="/static/images/gq.jpg"/>
+          <img src="/static/images/tu.jpg"/>
+          <img src="/static/images/1a.jpg"/>
+          <img src="/static/images/1b.jpg"/>
+          <img src="/static/images/gq.jpg"/>
+          <img src="/static/images/tu.jpg"/>
+          <img src="/static/images/1a.jpg"/>
+          <img src="/static/images/1b.jpg"/>
+          <img src="/static/images/gq.jpg"/>
+          <img src="/static/images/tu.jpg"/>
+          <img src="/static/images/1a.jpg"/>
+          <img src="/static/images/1b.jpg"/>
+          <img src="/static/images/gq.jpg"/>
+          <img src="/static/images/tu.jpg"/>
+          <img src="/static/images/1a.jpg"/>
+          <img src="/static/images/1b.jpg"/>
+          <img src="/static/images/gq.jpg"/>
+          <img src="/static/images/tu.jpg"/>
+          <img src="/static/images/1a.jpg"/>
+          <img src="/static/images/1b.jpg"/>
+          <img src="/static/images/gq.jpg"/>
+          <img src="/static/images/tu.jpg"/>
+          <img src="/static/images/1a.jpg"/>
+          <img src="/static/images/1b.jpg"/>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="panel-title head-text">Following</h3>
+        <div>
+        </br>
+        <img src="/static/images/gq.jpg"/>
+        <img src="/static/images/tu.jpg"/>
+        <img src="/static/images/1a.jpg"/>
+        <img src="/static/images/1b.jpg"/>
+        <img src="/static/images/gq.jpg"/>
+        <img src="/static/images/tu.jpg"/>
+        <img src="/static/images/1a.jpg"/>
+        <img src="/static/images/1b.jpg"/>
+        <img src="/static/images/gq.jpg"/>
+        <img src="/static/images/tu.jpg"/>
+        <img src="/static/images/1a.jpg"/>
+        <img src="/static/images/1b.jpg"/>
+        <img src="/static/images/gq.jpg"/>
+        <img src="/static/images/tu.jpg"/>
+        <img src="/static/images/1a.jpg"/>
+        <img src="/static/images/1b.jpg"/>
+        <img src="/static/images/gq.jpg"/>
+        <img src="/static/images/tu.jpg"/>
+        <img src="/static/images/1a.jpg"/>
+        <img src="/static/images/1b.jpg"/>
+        <img src="/static/images/gq.jpg"/>
+        <img src="/static/images/tu.jpg"/>
+        <img src="/static/images/1a.jpg"/>
+        <img src="/static/images/1b.jpg"/>
+        <img src="/static/images/gq.jpg"/>
+        <img src="/static/images/tu.jpg"/>
+        <img src="/static/images/1a.jpg"/>
+        <img src="/static/images/1b.jpg"/>
+      </div>
+
+    </div>
+
+
+    </div>
+    </div>
+
+    </div>
+
+    {% endblock %}
+
+
+</div> <!-- row -->
+
+</div> <!-- /container -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+</body>
+
+</html>

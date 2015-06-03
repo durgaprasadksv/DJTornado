@@ -1,0 +1,142 @@
+{% extends "index.html" %}
+    
+    {% block leftbox %}
+      <div class="col-md-3">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title head-text">Post a Grumble !!</h3> 
+              <span class="error-msg">{{grumbl_error}}</span>
+            </div>
+
+            
+            <div class="panel-body">
+
+              <form role="form" action="/grumblr/grumbl" method="POST">
+                  <textarea class="form-control" maxlength="42" rows="3" name="grumbl"></textarea>
+                  </br>
+                  <button type="submit" class=" glyphicon glyphicon-camera btn btn-danger" name="image">Image
+                  </button>
+                  <button type="submit" class=" glyphicon glyphicon-edit btn btn-danger pull-right"
+                  name="textpost">Post</button>
+                   <input type="hidden" name="next" value="{{ next }}" />
+                  {% csrf_token %}
+              </form>
+              
+            </div>
+
+          </div>
+          </div>
+      {% endblock %}
+
+      {% block middlebox %}
+        <div class="col-md-6 feed">
+
+         
+        <div class="panel panel-default ">
+
+            <div class="panel-heading" id="profile-background">
+            <div class="profile-pic pull-right top-buffer circle" ></div>
+            </br></br></br></br></br></br>
+            </div>
+
+           
+            
+                  <div class="panel-body ">
+
+            <div class="row">
+                    
+
+                    <div class="col-xs-7 pull-left ">
+                      <form id="signupForm" method="POST" action="/grumblr/updateprofile" accept-charset="UTF-8">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-envelope "></i>
+                        Username: </span>
+                        <input id="username" class="form-control input-xs" placeholder="Username" required="required" maxlength="100" type="text" name="username" value="{{user.username}}" readonly>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-asterisk "></i>
+                        Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input id="email" name="email" class="form-control input-xs" placeholder="Email" required="required" maxlength="60" type="text" value="{{user.email}}">
+                    </div>
+
+                                            
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="icon-asterisk">
+                                                  
+                                                </i>First Name:</span>
+                                                <input id="firstname" name="firstname" class="form-control input-xs" placeholder="Full Name" required="required" maxlength="60" type="text" value="{{user.first_name}}">
+                                           
+                                            </div>
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="icon-asterisk"></i>
+                                                Last Name:
+                                                </span>
+                                                <input id="lastname" name="lastname" class="form-control input-xs" placeholder="About me" required="required" maxlength="60" type="text" value="{{user.last_name}}">
+                                           
+                                            </div>
+
+
+                                             </br>
+                                                <div class="form-group">
+                                                <button type="submit" id="btn-signup" class="btn btn-block btn-primary btn-s btn-danger">update profile</button>
+                                            </div>
+
+                                            {% csrf_token %}
+                                             <input type="hidden" name="next" value="{{ next }}" />
+                          </form>
+                    </div> 
+                    <div class="col-m-2">
+                    </div>           
+            </div>
+            </div>
+
+          
+
+        
+
+            
+     
+        </div>
+
+        
+          
+          <div class="panel panel-default top-buffer">
+              <div class="panel-heading"> 
+                <span class="glyphicon glyphicon-play-circle"></span><b class="head-text"> Grumbls </b>
+                  <a href="/grumblr/"> <span class="glyphicon glyphicon-refresh pull-right" style="font-size:20px";/></a>
+               </br>
+              </div>
+
+                
+
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <ul class="grumbl">
+
+                          {% for g in grumbls %}
+                            <li class="post">
+                            <a class="glyphicon glyphicon-trash pull-right" href="/grumblr/delete-grumbl/{{g.id}}"></a>
+                            <table cellpadding="4">
+                              <tr>
+                                <td><img src="/static/images/default-profile.jpg" width="60" class="img-circle" /></td>
+                                <td> <h4>@{{g.user}}</h4>{{g.text}}</td>
+                              </tr>
+                            </table>
+                           
+                            {% endfor %}
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+        </div>
+
+      {% endblock %}
+  

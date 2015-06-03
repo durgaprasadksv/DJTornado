@@ -1,0 +1,96 @@
+  
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Grumblr</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="/static/css/grumbler.css" rel="stylesheet">
+
+</head>
+
+<body id="home-background">
+
+  {% block topnavbar %}
+  <div class="navbar navbar-fixed-top topnav" role="navigation">
+    <div class="container ">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" style="font-size:35px;color:#d9534f;font-weight: bold;" href="/grumblr/">Grumblr</a>
+      </div>
+
+     
+    </div>
+  </div>
+
+  {% endblock %}
+
+  {% block welcomeblock %}
+  <div class="jumbatron signin">
+  <div class="container">
+    <div class="row top-buffer">
+      <div class="col-md-4 pull-center">
+       <h2> Welcome </h2>
+       <h3> Share your world, follow your interests, make friends</h3>    		
+     </div>
+ {% endblock %}
+ 
+
+ {% block contentblock %}
+
+     <div class="col-md-4 pull-right signup">
+      <span class="head-text">Sign In!!</span>
+
+         {% if form.errors %}
+            <span class="glyphicon glyphicon-remove-sign error-msg">
+              </span>
+            <span class="error-msg">Wrong username or password</span>
+
+          {% endif %}
+
+          <form id="signupForm" method="POST" action="{% url 'django.contrib.auth.views.login' %}">   
+            <div class="input-group ">
+                <span class="input-group-addon"><i class="icon-envelope icon-2x"></i></span>
+                {{ form.username }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon-asterisk icon-1x"></i></span>
+                 {{ form.password }}
+            </div>
+             </br>
+                <div class="form-group">
+                <button type="submit" id="btn-signup" class="btn btn-block btn-primary btn-lg btn-danger">Sign In</button>
+
+                <span> <a href="/grumblr/forgotpass" >Forgot Password</a></span>
+                <span class="head-text">New to Grumblr?  <a href="/grumblr/register" >Sign Up</a> here</span>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% csrf_token %}
+        </form>
+       
+       </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+  </body>
+
+  </html>

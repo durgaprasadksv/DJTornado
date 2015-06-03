@@ -1,0 +1,61 @@
+{% extends "login.html" %}
+
+    {% block contentblock %}
+    <div class="col-md-4 pull-right signup">
+      <span class="head-text">New to Grumblr? Signup. !!</span>
+
+         {% if registerform.errors %}
+            <span class="glyphicon glyphicon-remove-sign error-msg">
+              </span>
+            <span class="error-msg"> {{ registerform.errors }} </span>
+          {% endif %}
+
+
+
+          <form method="POST" action="/grumblr/register">
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-envelope icon-1x"></i></span>
+                      {{registerform.username}}    
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-envelope icon-1x"></i></span>
+                      {{registerform.email}}       
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-envelope icon-1x"></i></span>
+                      {{registerform.first_name}}       
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-envelope icon-1x"></i></span>
+                      {{registerform.last_name}}       
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-envelope icon-1x"></i></span>
+                      {{registerform.password1}}       
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-envelope icon-1x"></i></span>
+                      {{registerform.password2}}       
+                </div>
+                </br>
+
+              <div class="form-group">
+                <button type="submit" id="btn-signup" class="btn btn-block btn-primary btn-lg btn-danger">Sign Up</button>
+              </div>
+              {%csrf_token%}
+
+          </form>
+       
+       </div>
+
+    </div>
+  </div>
+</div>
+
+    {% endblock %}
+
